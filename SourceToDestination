@@ -1,0 +1,32 @@
+class Solution {
+    func getPath() -> Int {
+        let mat = [[1,1,0,0],[1,1,0,0],[1,1,1,0],[1,0,1,1]]
+        var sol = Array(repeating: Array(repeating: 0, count: mat[0].count), count: mat.count)
+        let p = helper(mat, 0, 0, &sol)
+        print("\(sol)")
+        return 0
+    }
+    
+    func helper(_ m:[[Int]], _ x: Int, _ y: Int, _ res: inout[[Int]]) -> Bool{
+        if x == m.count-1 && y == m[0].count-1 {
+            res[x][y] = 1
+            return true
+        }
+        
+        if x >= m.count || y >= m[0].count || m[x][y] == 0 {
+            return false
+        }
+        
+        res[x][y] = 1
+        if helper(m, x+1, y, &res) {
+            return true
+        }
+        
+        if helper(m, x, y+1, &res) {
+            return true
+        }
+        
+        res[x][y] = 0
+        return false
+    }
+}
